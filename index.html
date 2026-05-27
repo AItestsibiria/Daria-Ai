@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Daria AI — English Studio</title>
+  <meta name="description" content="Daria AI — современная студия английского языка: занятия, практика, уверенность в речи." />
+  <style>
+    :root{
+      --bg:#0b1020;
+      --bg2:#121a33;
+      --card:#151f3d;
+      --line:rgba(255,255,255,.12);
+      --text:#f3f7ff;
+      --muted:#b7c2e0;
+      --accent:#67e8f9;
+      --accent2:#8b5cf6;
+      --btn:#22c55e;
+      --btnHover:#16a34a;
+      --shadow:0 20px 60px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(103,232,249,.18), transparent 30%),
+        radial-gradient(circle at top right, rgba(139,92,246,.18), transparent 28%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
+      min-height:100vh;
+    }
+    .wrap{
+      width:min(1120px, calc(100% - 32px));
+      margin:0 auto;
+    }
+    header{
+      padding:20px 0;
+      position:sticky;
+      top:0;
+      backdrop-filter:blur(10px);
+      background:rgba(11,16,32,.55);
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+    }
+    .logo{
+      font-size:22px;
+      font-weight:700;
+      letter-spacing:.5px;
+    }
+    .logo span{color:var(--accent)}
+    .btn{
+      display:inline-block;
+      padding:14px 22px;
+      border-radius:14px;
+      text-decoration:none;
+      color:white;
+      background:var(--btn);
+      font-weight:700;
+      transition:.2s ease;
+      box-shadow:var(--shadow);
+    }
+    .btn:hover{background:var(--btnHover); transform:translateY(-1px)}
+    .hero{
+      padding:84px 0 56px;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.2fr .8fr;
+      gap:28px;
+      align-items:center;
+    }
+    .badge{
+      display:inline-block;
+      padding:8px 14px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      color:var(--accent);
+      font-size:14px;
+      margin-bottom:18px;
+      background:rgba(255,255,255,.03);
+    }
+    h1{
+      font-size:clamp(38px, 8vw, 72px);
+      line-height:1.02;
+      margin:0 0 18px;
+    }
+    .lead{
+      font-size:20px;
+      line-height:1.6;
+      color:var(--muted);
+      max-width:700px;
+      margin:0 0 28px;
+    }
+    .hero-card,.card{
+      background:rgba(255,255,255,.04);
+      border:1px solid var(--line);
+      border-radius:24px;
+      box-shadow:var(--shadow);
+    }
+    .hero-card{
+      padding:26px;
+    }
+    .mini{
+      display:grid;
+      gap:14px;
+    }
+    .mini-item{
+      padding:16px 18px;
+      border-radius:18px;
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.08);
+    }
+    .mini-item strong{
+      display:block;
+      margin-bottom:6px;
+      color:white;
+    }
+    section{
+      padding:24px 0 64px;
+    }
+    .section-title{
+      font-size:34px;
+      margin:0 0 12px;
+    }
+    .section-sub{
+      color:var(--muted);
+      margin:0 0 28px;
+      font-size:18px;
+      line-height:1.6;
+      max-width:760px;
+    }
+    .grid-3{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:20px;
+    }
+    .card{
+      padding:24px;
+    }
+    .card h3{
+      margin:0 0 10px;
+      font-size:22px;
+    }
+    .card p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.7;
+    }
+    .cta{
+      margin:24px 0 72px;
+      padding:34px;
+      text-align:center;
+    }
+    .cta h2{
+      margin:0 0 12px;
+      font-size:34px;
+    }
+    .cta p{
+      margin:0 0 22px;
+      color:var(--muted);
+      font-size:18px;
+    }
+    footer{
+      padding:24px 0 40px;
+      color:var(--muted);
+      text-align:center;
+      border-top:1px solid rgba(255,255,255,.08);
+    }
+    @media (max-width: 900px){
+      .hero-grid,.grid-3{
+        grid-template-columns:1fr;
+      }
+      .hero{
+        padding-top:56px;
+      }
+      .section-title,.cta h2{
+        font-size:28px;
+      }
+      .lead{
+        font-size:18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <div class="logo">Daria <span>AI</span></div>
+      <a class="btn" href="#contact">Записаться</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="badge">English Studio • Tomsk • Online</div>
+          <h1>Английский без страха и скуки</h1>
+          <p class="lead">
+            Современная студия английского языка для детей, подростков и взрослых.
+            Живые занятия, понятная система, разговорная практика и уверенность в речи.
+          </p>
+          <a class="btn" href="#contact">Получить консультацию</a>
+        </div>
+
+        <div class="hero-card">
+          <div class="mini">
+            <div class="mini-item">
+              <strong>Индивидуально</strong>
+              Подбор программы под уровень, цели и темп ученика.
+            </div>
+            <div class="mini-item">
+              <strong>Для детей и взрослых</strong>
+              От школьной базы до разговорного английского и уверенной практики.
+            </div>
+            <div class="mini-item">
+              <strong>Онлайн и офлайн</strong>
+              Удобный формат занятий под ваш график.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <h2 class="section-title">Что вы получите</h2>
+        <p class="section-sub">
+          Программу, которая помогает не просто учить правила, а реально начать понимать,
+          говорить и использовать английский в жизни.
+        </p>
+
+        <div class="grid-3">
+          <div class="card">
+            <h3>Разговорная практика</h3>
+            <p>Фокус на реальную речь, словарь для жизни и уверенность в общении.</p>
+          </div>
+          <div class="card">
+            <h3>Понятная структура</h3>
+            <p>Каждый урок идёт по ясной логике: тема, практика, закрепление, результат.</p>
+          </div>
+          <div class="card">
+            <h3>Поддержка и мотивация</h3>
+            <p>Спокойная атмосфера, где не страшно ошибаться и легко двигаться вперёд.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <h2 class="section-title">Кому подходит</h2>
+        <p class="section-sub">
+          Формат подойдёт тем, кто хочет подтянуть школьную базу, улучшить разговорный английский,
+          начать обучение с нуля или системно расти до нового уровня.
+        </p>
+
+        <div class="grid-3">
+          <div class="card">
+            <h3>Детям</h3>
+            <p>Чтобы полюбить английский, понимать темы в школе и учиться без стресса.</p>
+          </div>
+          <div class="card">
+            <h3>Подросткам</h3>
+            <p>Чтобы свободнее говорить, лучше понимать грамматику и чувствовать прогресс.</p>
+          </div>
+          <div class="card">
+            <h3>Взрослым</h3>
+            <p>Чтобы использовать английский в работе, поездках, обучении и общении.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="wrap">
+        <div class="cta hero-card">
+          <h2>Начните с первого шага</h2>
+          <p>
+            Оставьте контакт или напишите в мессенджер — поможем выбрать формат,
+            уровень и удобный график занятий.
+          </p>
+          <a class="btn" href="https://t.me/" target="_blank" rel="noopener noreferrer">Написать в Telegram</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      Daria AI • English Studio • GitHub Pages
+    </div>
+  </footer>
+</body>
+</html>
