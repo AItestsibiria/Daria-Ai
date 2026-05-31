@@ -2,55 +2,77 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Current state of the repository
+## What this project is
 
-This repository is at the **initial / planning stage**. As of this writing the
-only tracked file is `README.md` — there is **no source code, build system,
-dependency manifest, test suite, CI configuration, or linter setup yet**.
+**Daria AI** is a single-page **static marketing landing page** for an AI-powered
+English-tutoring service aimed at Russian-speaking IT specialists and
+professionals. The entire site is one file: `index.html`.
 
-Consequently, this file documents the project's *intent* and the conventions to
-follow as code is introduced. There are intentionally **no build/lint/test
-commands listed below**, because none exist yet. When the first real code lands,
-update this section with the actual commands (how to install dependencies, run
-the app, run the full test suite, and run a single test).
+The page content is in **Russian** (`<html lang="ru">`); the brand name
+("Daria AI") and a few words like "Pro" are in Latin script. Preserve the
+Russian copy and the `lang="ru"` attribute when editing.
 
-## What the project is
+## Architecture
 
-**Daria-Ai** is a voice AI assistant named "Дарья" (Daria) for handling
-**incoming phone calls**. The system is intended to recognize the caller's
-speech, understand context, and respond by voice in real time, in order to
-automate the processing of inbound telephony.
+The whole site is **one self-contained file**, `index.html` (~9 KB):
 
-The README is written in Russian; Russian is the project's primary language for
-both documentation and the assistant's spoken interaction. Preserve Cyrillic
-text exactly when editing files.
+- Semantic HTML5 (`<header>`, `<section>`, `<footer>`).
+- **All CSS is inlined** in a single `<style>` block, using `:root` CSS custom
+  properties, gradients, flex/grid card layouts, and media queries for
+  responsiveness.
+- **Minimal inline JavaScript** — only smooth-scroll behavior for the on-page
+  anchor navigation. There is no data logic.
+- **No framework, no build step, no dependencies, no external CDN links, no
+  external scripts, no forms, no API/fetch calls, no analytics.** Everything is
+  inlined.
 
-## Intended functional scope
+Page sections (h2): «Почему Daria AI?» (Why), «Как это работает» (How it works),
+«Тарифы» (Pricing — tiers Старт / Профи·Pro / Премиум), «Готовы начать?» (CTA).
+The CTA buttons are plain anchor links (`href="#..."`) — there is no signup form
+or backend.
 
-The README describes the following planned capabilities. Treat these as the
-high-level domains the codebase will be organized around:
+**The established convention is "keep it self-contained."** When changing the
+site, edit `index.html` directly and keep styles/scripts inlined rather than
+introducing separate asset files, a bundler, or a framework, unless explicitly
+asked to change that approach.
 
-- **Speech-to-Text (STT)** — recognizing the caller's speech.
-- **Text-to-Speech (TTS)** — synthesizing the assistant's voice responses.
-- **Natural Language Processing (NLP)** — understanding intent and context.
-- **Telephony integration (SIP/VoIP)** — connecting to phone infrastructure to
-  receive and handle calls.
-- **Scenario-driven dialogue** — conducting conversations according to defined
-  scripts/scenarios.
-- **Call recording & analytics** — recording calls and analyzing them.
+## Build / run / test
 
-A real-time inbound voice assistant typically wires these together as a
-pipeline: telephony (SIP/VoIP) → STT → NLP/dialogue manager → TTS → telephony,
-with latency being a first-class concern. Keep that end-to-end audio loop in
-mind when adding components.
+There is **no build system, package manager, linter, or test suite** — and none
+is needed for a single static HTML file.
 
-## Guidance for future changes
+To preview locally, either open `index.html` directly in a browser, or serve it:
 
-- Because the project is greenfield, when you establish foundational choices
-  (language/runtime, framework, STT/TTS/NLP providers, telephony stack,
-  dependency manager, test runner), **record them here** so later sessions
-  inherit the decisions rather than re-deriving them.
-- The README's "Технологии" (Technologies), "Установка" (Installation), and
-  "Лицензия" (License) sections are placeholders marked "(раздел в разработке)".
-  When you implement the corresponding pieces, fill in both the README and the
-  relevant section of this file.
+```bash
+python3 -m http.server 8000   # then open http://localhost:8000
+```
+
+## Deployment
+
+`.github/workflows/deploy.yml` deploys the site to **GitHub Pages** on every
+push to the **`main`** branch, using the official Pages actions
+(`actions/configure-pages`, `actions/upload-pages-artifact` with `path: '.'`,
+and `actions/deploy-pages`). It uses the built-in `GITHUB_TOKEN`/OIDC — no
+custom secrets, no SSH/rsync, no external host.
+
+Deployment is automatic: merging/pushing to `main` publishes the site.
+
+> ⚠️ **Known issue:** the committed `deploy.yml` is currently corrupted — the
+> `name:` and `on:` stanzas are duplicated many times, which makes it invalid
+> YAML. It needs to be cleaned up to the single intended workflow before it will
+> run reliably.
+
+## Repository hygiene (important)
+
+The repository tracks several files that normally should **not** be committed
+and are unrelated to the site:
+
+- `.ssh/dariaeai_deploy` — a **private SSH deploy key** (plus
+  `.ssh/dariaeai_deploy.pub`, `.ssh/authorized_keys`, `.ssh/known_hosts`)
+- `.bash_history`, `.bashrc`, `.profile`, `.gitconfig`
+- `.cache/motd.legal-displayed`
+
+The committed private key is a credential-exposure risk. Do not add more such
+files. If you touch repository structure, consider removing these from version
+control and adding a `.gitignore` — but treat the key as potentially
+compromised and flag it rather than silently deleting it.
